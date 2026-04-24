@@ -154,8 +154,8 @@ const getDaysRelativeToNextPeriod = (day: number, cycleLen: number) => {
 
 // --- Components ---
 
-function SetupView({ onSave }: { onSave: (data: UserData) => void }) {
-  const [formData, setFormData] = useState<UserData>({
+function SetupView({ onSave, initialData, onCancel }: { onSave: (data: UserData) => void, initialData?: UserData, onCancel?: () => void }) {
+  const [formData, setFormData] = useState<UserData>(initialData || {
     userName: '',
     partnerName: '',
     lastPeriodDate: new Date().toISOString().split('T')[0],
@@ -172,12 +172,25 @@ function SetupView({ onSave }: { onSave: (data: UserData) => void }) {
       >
         <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-accent opacity-5 rounded-full blur-2xl" />
         
+        {onCancel && (
+          <button 
+            onClick={onCancel}
+            className="absolute top-6 left-6 text-[#A8A293] hover:text-accent transition-colors"
+          >
+            <ChevronLeft size={24} />
+          </button>
+        )}
+
         <div className="text-center space-y-4 relative z-10">
           <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-2">
             <Heart className="text-accent w-10 h-10 italic" />
           </div>
-          <h1 className="text-4xl font-serif italic font-light tracking-tight text-[#2D2D2D]">Compañero Consciente</h1>
-          <p className="text-[10px] text-[#A8A293] font-bold uppercase tracking-[0.3em]">Cuidar es un arte</p>
+          <h1 className="text-4xl font-serif italic font-light tracking-tight text-[#2D2D2D]">
+            {initialData ? 'Editar Perfil' : 'Compañero Consciente'}
+          </h1>
+          <p className="text-[10px] text-[#A8A293] font-bold uppercase tracking-[0.3em]">
+            {initialData ? 'Ajusta tu configuración' : 'Cuidar es un arte'}
+          </p>
         </div>
 
         <div className="space-y-6 relative z-10 font-sans">
@@ -652,6 +665,7 @@ function GuideView({ partnerName }: { partnerName: string }) {
 
 export default function App() {
   const [data, setData] = useState<UserData | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -665,23 +679,25 @@ export default function App() {
   const handleSave = (newData: UserData) => {
     localStorage.setItem('partner_tracker_data', JSON.stringify(newData));
     setData(newData);
+    setIsEditing(false);
   };
 
-  const handleReset = () => {
-    if (confirm('¿Quieres volver a configurar los datos?')) {
-      localStorage.removeItem('partner_tracker_data');
-      setData(null);
-    }
+  const handleEdit = () => {
+    setIsEditing(true);
   };
 
   if (loading) return null;
 
   return (
     <div className="font-sans">
-      {!data ? (
-        <SetupView onSave={handleSave} />
+      {!data || isEditing ? (
+        <SetupView 
+          onSave={handleSave} 
+          initialData={data || undefined} 
+          onCancel={data ? () => setIsEditing(false) : undefined} 
+        />
       ) : (
-        <MainView data={data} resetData={handleReset} />
+        <MainView data={data} resetData={handleEdit} />
       )}
     </div>
   );
