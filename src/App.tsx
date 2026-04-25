@@ -35,96 +35,94 @@ interface UserData {
 interface PhaseInfo {
   id: 'menstrual' | 'folicular' | 'ovulatoria' | 'lutea_temprana' | 'premenstrual';
   name: string;
-  poeticName: string;
+  directMessage: string;
   color: string;
   bgColor: string;
-  description: string;
   physical: string;
   emotional: string;
   intimacy: string;
   cravings: string;
   communication: string;
   gesture: string;
-  range: [number, number]; // Cycle day range
+  desireLevel: number; // 1-10
+  range: [number, number];
 }
-
-// --- Data Constants ---
 
 const PHASES: PhaseInfo[] = [
   {
     id: 'menstrual',
-    name: 'Menstrual',
-    poeticName: 'Fase de Invierno e Introspección',
-    color: '#8B2E4B',
-    bgColor: 'bg-[#8B2E4B]',
-    description: 'Es un momento de renovación profunda. Su cuerpo está soltando para volver a empezar.',
-    physical: 'Fatiga, calambres, sensibilidad al frío y necesidad de mucho descanso.',
-    emotional: 'Introvertida, reflexiva. Puede sentirse más vulnerable o sensible al entorno.',
-    intimacy: 'Deseo generalmente bajo. La cercanía física sin presión es muy valorada.',
-    cravings: 'Chocolate negro, alimentos calientes, carbohidratos reconfortantes y hierro.',
-    communication: 'Escucha más de lo que hablas. Evita debates intensos o decisiones apresuradas.',
-    gesture: 'Prepárale una manta caliente, un té o sorpréndela con su comida reconfortante favorita.',
+    name: 'Fase Menstrual',
+    directMessage: 'Está perdiendo mucha sangre y energía. Necesita descanso total y calor.',
+    color: '#EA4335', // Google Red
+    bgColor: 'bg-google-red',
+    physical: 'Dolor abdominal, fatiga extrema, sensibilidad al frío.',
+    emotional: 'Sensible, introvertida, necesita calma.',
+    intimacy: 'Deseo bajo. Prioriza mimos sin contacto sexual.',
+    cravings: 'Chocolate negro, sopas calientes, alimentos con hierro.',
+    communication: 'No le pidas decisiones importantes. Escucha y valida.',
+    gesture: 'Prepárale una manta caliente o su comida reconfortante.',
+    desireLevel: 2,
     range: [1, 5]
   },
   {
     id: 'folicular',
-    name: 'Folicular',
-    poeticName: 'Fase de Primavera y Renovación',
-    color: '#6B8F71',
-    bgColor: 'bg-[#6B8F71]',
-    description: 'La energía comienza a brotar. Ella se siente más ligera, creativa y abierta al mundo.',
-    physical: 'Energía creciente, piel más luminosa y sensación de ligereza corporal.',
-    emotional: 'Optimismo, ganas de socializar, creatividad y apertura a nuevas ideas.',
-    intimacy: 'Deseo en aumento. Está más abierta a explorar y a la iniciativa constante.',
-    cravings: 'Platos variados, ensaladas frescas, frutas y ganas de probar sabores nuevos.',
-    communication: 'Excelente momento para planificar viajes, proyectos o conversaciones importantes.',
-    gesture: 'Propón una salida espontánea o una actividad que nunca hayan hecho antes.',
+    name: 'Fase Folicular',
+    directMessage: 'Su energía está subiendo. Está más abierta a planes, socializar y novedad.',
+    color: '#34A853', // Google Green
+    bgColor: 'bg-google-green',
+    physical: 'Energía alta, piel radiante, se siente ligera.',
+    emotional: 'Optimista, creativa, con ganas de hacer cosas.',
+    intimacy: 'Deseo subiendo. Toma la iniciativa para planes divertidos.',
+    cravings: 'Comidas frescas, ensaladas, platos ligeros.',
+    communication: 'Ideal para planificar proyectos o viajes juntos.',
+    gesture: 'Propón una actividad nueva o una salida espontánea.',
+    desireLevel: 7,
     range: [6, 13]
   },
   {
     id: 'ovulatoria',
-    name: 'Ovulatoria',
-    poeticName: 'Fase de Verano y Plenitud',
-    color: '#C4973A',
-    bgColor: 'bg-[#C4973A]',
-    description: 'Es su pico de vitalidad y conexión. Se siente radiante y magnética.',
-    physical: 'Máxima energía, alta resistencia física y se siente especialmente atractiva.',
-    emotional: 'Seguridad en sí misma, carisma y una conexión social muy elevada.',
-    intimacy: 'Deseo máximo. Es el momento de mayor receptividad y conexión física intensa.',
-    cravings: 'Apetito más ligero, prefiere comidas saludables pero elegantes.',
-    communication: 'Perfecto para la conexión emocional profunda y palabras de admiración sincera.',
-    gesture: 'Dedícale tu presencia total. Una cena romántica o simplemente admirarla será suficiente.',
+    name: 'Fase Ovulatoria (Pico)',
+    directMessage: 'Es su momento de máxima vitalidad. Se siente magnética y con mucho deseo sexual.',
+    color: '#FBBC05', // Google Yellow
+    bgColor: 'bg-google-yellow',
+    physical: 'Energía máxima. Se siente muy atractiva y fuerte.',
+    emotional: 'Segura de sí misma, sociable y carismática.',
+    intimacy: 'PICO DE DESEO. Momento de mayor conexión física e intensidad.',
+    cravings: 'Comidas saludables y elegantes. Apetito moderado.',
+    communication: 'Comunícale lo mucho que la admiras y deséala.',
+    gesture: 'Cena especial o tiempo de calidad exclusivo para ambos.',
+    desireLevel: 10,
     range: [14, 16]
   },
   {
     id: 'lutea_temprana',
-    name: 'Lútea Temprana',
-    poeticName: 'Fase de Otoño y Recolección',
-    color: '#7B6B9E',
-    bgColor: 'bg-[#7B6B9E]',
-    description: 'La energía empieza a descender suavemente. El foco vuelve hacia el hogar y el orden.',
-    physical: 'Bajada de energía gradual. Puede empezar a sentirse un poco más hinchada.',
-    emotional: 'Más reflexiva, necesita orden a su alrededor y momentos de paz.',
-    intimacy: 'Deseo variable. Busca más la ternura y la seguridad emocional.',
-    cravings: 'Alimentos más sustanciosos, ganas de picar algo salado.',
-    communication: 'Habla sobre el hogar, el bienestar y mantén un tono suave y acogedor.',
-    gesture: 'Ayúdala con las tareas del hogar sin que lo pida. El orden le dará paz mental.',
+    name: 'Fase Lútea',
+    directMessage: 'La energía baja. Busca más el nido, la tranquilidad y el orden en casa.',
+    color: '#4285F4', // Google Blue
+    bgColor: 'bg-google-blue',
+    physical: 'Bajada de energía progresiva. Empieza a hincharse.',
+    emotional: 'Reflexiva, busca seguridad y confort doméstico.',
+    intimacy: 'Deseo moderado. Busca más la ternura y la cercanía emocional.',
+    cravings: 'Alimentos calóricos, antojos salados, picoteo.',
+    communication: 'Habla de temas de hogar y estabilidad. Sé suave.',
+    gesture: 'Ayuda con las tareas de casa sin que te lo pida.',
+    desireLevel: 5,
     range: [17, 22]
   },
   {
     id: 'premenstrual',
-    name: 'Premenstrual',
-    poeticName: 'Fase de Tormenta y Sensibilidad',
-    color: '#5D4B7A', // Deeper version of Luteal
-    bgColor: 'bg-[#5D4B7A]',
-    description: 'Sensibilidad a flor de piel. Su cuerpo y mente necesitan validación y paciencia.',
-    physical: 'Sensibilidad en los pechos, hinchazón, posibles dolores de cabeza.',
-    emotional: 'Mayor sensibilidad, posible irritabilidad o ganas de llorar sin motivo aparente.',
-    intimacy: 'Deseo a menudo bajo. La paciencia y el afecto no sexual son claves.',
-    cravings: 'Antojos intensos de dulce y salado. Hambre emocional.',
-    communication: 'EVITA críticas. Valida sus sentimientos: "Te entiendo", "Estoy aquí".',
-    gesture: 'Palabras de afirmación. Dile lo mucho que la valoras y lo bien que lo está haciendo.',
-    range: [23, 28] // Note: this adjusts if cycle > 28
+    name: 'Fase Premenstrual',
+    directMessage: 'Días críticos. Está muy sensible y puede estar irritable. Paciencia máxima.',
+    color: '#5F6368', // Google Gray
+    bgColor: 'bg-google-gray',
+    physical: 'Hinchazón, dolor de pechos, posible dolor de cabeza.',
+    emotional: 'Vulnerable, sensible a la crítica, necesita validación.',
+    intimacy: 'Deseo bajo. Evita presiones. Dale espacio y afecto.',
+    cravings: 'Antojos intensos de dulce. Hambre emocional.',
+    communication: 'EVITA críticas. Dile: "Te entiendo" y "Aquí estoy".',
+    gesture: 'Palabras de afirmación. Recuérdale que es maravillosa.',
+    desireLevel: 3,
+    range: [23, 28]
   }
 ];
 
@@ -164,88 +162,88 @@ function SetupView({ onSave, initialData, onCancel }: { onSave: (data: UserData)
   });
 
   return (
-    <div className="min-h-screen bg-border-subtle flex flex-col justify-center items-center p-6 text-[#333]">
+    <div className="min-h-screen bg-[#F8F9FA] flex flex-col justify-center items-center p-4">
       <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="max-w-md w-full bg-white rounded-[3rem] shadow-2xl p-10 space-y-10 border border-white/50 relative overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-lg w-full bg-white rounded-2xl shadow-xl p-8 sm:p-12 space-y-8 border border-[#E8EAED] relative"
       >
-        <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-accent opacity-5 rounded-full blur-2xl" />
-        
         {onCancel && (
           <button 
             onClick={onCancel}
-            className="absolute top-6 left-6 text-[#A8A293] hover:text-accent transition-colors"
+            className="absolute top-6 left-6 p-2 rounded-full hover:bg-gray-100 text-google-gray transition-colors"
           >
             <ChevronLeft size={24} />
           </button>
         )}
 
-        <div className="text-center space-y-4 relative z-10">
-          <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-2">
-            <Heart className="text-accent w-10 h-10 italic" />
+        <div className="text-center space-y-2">
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 bg-google-blue rounded-[1.2rem] flex items-center justify-center shadow-lg transform rotate-6">
+              <Heart className="text-white w-8 h-8 fill-white" />
+            </div>
           </div>
-          <h1 className="text-4xl font-serif italic font-light tracking-tight text-[#2D2D2D]">
-            {initialData ? 'Editar Perfil' : 'Compañero Consciente'}
+          <h1 className="text-3xl font-medium tracking-tight text-[#202124]">
+            {initialData ? 'Configuración' : 'Compañero Consciente'}
           </h1>
-          <p className="text-[10px] text-[#A8A293] font-bold uppercase tracking-[0.3em]">
-            {initialData ? 'Ajusta tu configuración' : 'Cuidar es un arte'}
+          <p className="text-sm text-google-gray font-normal">
+            {initialData ? 'Actualiza los datos de seguimiento' : 'Información clave para acompañar mejor'}
           </p>
         </div>
 
-        <div className="space-y-6 relative z-10 font-sans">
-          <div className="grid grid-cols-1 gap-6">
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-[#A8A293] ml-1">Tu Nombre</label>
+        <div className="space-y-6 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-1.5 focus-within:text-google-blue transition-colors">
+              <label className="text-xs font-semibold text-google-gray ml-1">Tu nombre</label>
               <input 
                 type="text" 
                 value={formData.userName}
                 onChange={e => setFormData({...formData, userName: e.target.value})}
-                placeholder="Ej: Rafael"
-                className="w-full p-5 rounded-2xl border border-border-subtle bg-bg-ivory/50 focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all placeholder:text-gray-300"
+                placeholder="Rafael"
+                className="w-full px-4 py-3 rounded-lg border border-[#DADCE0] bg-white focus:border-google-blue focus:ring-1 focus:ring-google-blue outline-none transition-all placeholder:text-gray-400"
               />
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-[#A8A293] ml-1">Nombre de tu Pareja</label>
+            <div className="space-y-1.5 focus-within:text-google-blue transition-colors">
+              <label className="text-xs font-semibold text-google-gray ml-1">Su nombre</label>
               <input 
                 type="text" 
                 value={formData.partnerName}
                 onChange={e => setFormData({...formData, partnerName: e.target.value})}
-                placeholder="Ej: Elena"
-                className="w-full p-5 rounded-2xl border border-border-subtle bg-bg-ivory/50 focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all placeholder:text-gray-300"
+                placeholder="Elena"
+                className="w-full px-4 py-3 rounded-lg border border-[#DADCE0] bg-white focus:border-google-blue focus:ring-1 focus:ring-google-blue outline-none transition-all placeholder:text-gray-400"
               />
             </div>
           </div>
           
-          <div className="space-y-2">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-[#A8A293] ml-1">Última Menstruación</label>
+          <div className="space-y-1.5 focus-within:text-google-blue transition-colors">
+            <label className="text-xs font-semibold text-google-gray ml-1">Fecha inicio última regla</label>
             <input 
               type="date" 
               value={formData.lastPeriodDate}
               onChange={e => setFormData({...formData, lastPeriodDate: e.target.value})}
-              className="w-full p-5 rounded-2xl border border-border-subtle bg-bg-ivory/50 focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all"
+              className="w-full px-4 py-3 rounded-lg border border-[#DADCE0] bg-white focus:border-google-blue focus:ring-1 focus:ring-google-blue outline-none transition-all"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-[#A8A293] ml-1">Ciclo (Días)</label>
+            <div className="space-y-1.5 focus-within:text-google-blue transition-colors">
+              <label className="text-xs font-semibold text-google-gray ml-1">Días de ciclo</label>
               <input 
                 type="number" 
                 min="21" max="35"
                 value={formData.cycleLength}
                 onChange={e => setFormData({...formData, cycleLength: parseInt(e.target.value)})}
-                className="w-full p-5 rounded-2xl border border-border-subtle bg-bg-ivory/50 outline-none focus:border-accent"
+                className="w-full px-4 py-3 rounded-lg border border-[#DADCE0] focus:border-google-blue outline-none"
               />
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-[#A8A293] ml-1">Regla (Días)</label>
+            <div className="space-y-1.5 focus-within:text-google-blue transition-colors">
+              <label className="text-xs font-semibold text-google-gray ml-1">Días de regla</label>
               <input 
                 type="number" 
                 min="2" max="10"
                 value={formData.periodLength}
                 onChange={e => setFormData({...formData, periodLength: parseInt(e.target.value)})}
-                className="w-full p-5 rounded-2xl border border-border-subtle bg-bg-ivory/50 outline-none focus:border-accent"
+                className="w-full px-4 py-3 rounded-lg border border-[#DADCE0] focus:border-google-blue outline-none"
               />
             </div>
           </div>
@@ -253,10 +251,9 @@ function SetupView({ onSave, initialData, onCancel }: { onSave: (data: UserData)
 
         <button 
           onClick={() => onSave(formData)}
-          className="w-full bg-accent text-white p-6 rounded-[2rem] font-bold text-sm uppercase tracking-[0.2em] shadow-xl shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all relative overflow-hidden group"
+          className="google-button google-button-primary w-full py-4 text-base tracking-wide mt-4"
         >
-          <span className="relative z-10">Iniciar Camino</span>
-          <div className="absolute inset-0 bg-black/10 translate-y-full group-hover:translate-y-0 transition-transform" />
+          {initialData ? 'Guardar Cambios' : 'Empezar ahora'}
         </button>
       </motion.div>
     </div>
@@ -265,44 +262,53 @@ function SetupView({ onSave, initialData, onCancel }: { onSave: (data: UserData)
 
 function MainView({ data, resetData }: { data: UserData, resetData: () => void }) {
   const [activeTab, setActiveTab] = useState<'hoy' | 'ciclo' | 'proximo' | 'guia'>('hoy');
-  const [viewDate, setViewDate] = useState(new Date());
 
   const currentDay = useMemo(() => getCycleDay(data.lastPeriodDate, data.cycleLength), [data]);
   const currentPhase = useMemo(() => getPhaseForDay(currentDay, data.cycleLength), [currentDay, data]);
 
   const tabs = [
-    { id: 'hoy', icon: '🏠', label: 'Hoy' },
-    { id: 'ciclo', icon: '📅', label: 'Ciclo' },
-    { id: 'proximo', icon: '⏭️', label: 'Timeline' },
-    { id: 'guia', icon: '💡', label: 'Guía' },
+    { id: 'hoy', icon: <Sparkles size={20} />, label: 'Hoy' },
+    { id: 'ciclo', icon: <Calendar size={20} />, label: 'Ciclo' },
+    { id: 'proximo', icon: <Activity size={20} />, label: 'Eventos' },
+    { id: 'guia', icon: <BookOpen size={20} />, label: 'Guía' },
   ];
 
   return (
-    <div className="min-h-screen bg-white shadow-2xl relative overflow-hidden flex flex-col max-w-5xl mx-auto border-x border-border-subtle">
-      {/* Decorative Blobs */}
-      <div className="absolute top-[-100px] right-[-100px] w-64 h-64 bg-accent opacity-[0.03] rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-20 left-[-50px] w-48 h-48 bg-[#6B8F71] opacity-[0.03] rounded-full blur-3xl pointer-events-none"></div>
-
-      {/* Header */}
-      <header className="pt-10 px-8 pb-6 flex justify-between items-end border-b border-border-subtle bg-white relative z-10">
-        <div>
-          <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-[#A8A293] mb-2">Acompañante Consciente</p>
-          <h1 className="text-3xl md:text-4xl font-serif font-light leading-tight">
-            Hola, {data.userName}. Hoy {data.partnerName} está en su <span className="text-accent font-semibold italic">{currentPhase.name}</span>
-          </h1>
+    <div className="min-h-screen bg-[#F8F9FA] flex flex-col max-w-2xl mx-auto shadow-2xl relative">
+      {/* Google Style Header */}
+      <header className="bg-white border-b border-[#E8EAED] sticky top-0 z-30 px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-google-blue rounded-lg flex items-center justify-center shadow-sm">
+            <Heart size={20} className="text-white fill-white" />
+          </div>
+          <div>
+            <h1 className="text-lg font-medium text-[#202124] leading-tight">Compañero Consciente</h1>
+            <p className="text-xs text-google-gray">Acompañando a <span className="font-semibold">{data.partnerName}</span></p>
+          </div>
         </div>
-        <div className="text-right hidden sm:block">
-          <p className="text-3xl font-serif font-light">
-            Día <span className="font-semibold">{currentDay}</span> <span className="text-xl opacity-50">de {data.cycleLength}</span>
-          </p>
-          <p className="text-[10px] text-[#A8A293] uppercase tracking-[0.15em] font-bold">{currentPhase.poeticName}</p>
-        </div>
-        <button onClick={resetData} className="sm:hidden absolute top-4 right-4 p-2 text-gray-300 hover:text-accent">
-          <Settings size={18} />
+        <button onClick={resetData} className="p-2 rounded-full hover:bg-gray-100 text-google-gray transition-colors">
+          <Settings size={20} />
         </button>
       </header>
 
-      <main className="flex-1 p-6 md:p-8 relative z-10 overflow-y-auto">
+      {/* Main Content Area */}
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto pb-24">
+        {/* Day Indicator Card */}
+        <div className="mb-6 p-6 bg-white rounded-2xl border border-[#E8EAED] shadow-sm overflow-hidden relative">
+          <div className={`absolute top-0 left-0 w-1.5 h-full ${currentPhase.bgColor}`} />
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <span className={`inline-block px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider text-white mb-2 ${currentPhase.bgColor}`}>
+                {currentPhase.name}
+              </span>
+              <h2 className="text-2xl font-medium text-[#202124]">Día {currentDay} del ciclo</h2>
+            </div>
+          </div>
+          <p className="text-[#3C4043] text-lg font-normal leading-relaxed border-l-4 border-[#E8EAED] pl-4 italic">
+            "{currentPhase.directMessage}"
+          </p>
+        </div>
+
         <AnimatePresence mode="wait">
           {activeTab === 'hoy' && (
             <motion.div
@@ -310,38 +316,56 @@ function MainView({ data, resetData }: { data: UserData, resetData: () => void }
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-8"
+              className="space-y-6"
             >
-              {/* Left Column: Narrative */}
-              <div className="md:col-span-5 flex flex-col gap-6">
-                <div className="p-8 bg-bg-ivory rounded-[2.5rem] border border-border-subtle flex-1 card-shadow">
-                  <h2 className="text-xl font-serif italic mb-6 border-b border-border-subtle pb-3 text-[#555]">Hoy ella probablemente...</h2>
-                  <p className="text-[#444] leading-relaxed italic text-lg lg:text-xl font-serif">
-                    "{currentPhase.description}"
-                  </p>
-                  
-                  <div className="mt-10 flex items-center gap-5 p-5 bg-white rounded-3xl border border-border-subtle card-shadow">
-                    <div className="w-14 h-14 flex items-center justify-center rounded-full bg-accent text-white text-2xl shadow-lg shadow-accent/20 shrink-0">🎁</div>
-                    <div>
-                      <p className="text-[10px] uppercase tracking-widest font-bold text-[#A8A293] mb-1">Gesto del día</p>
-                      <p className="text-sm font-medium leading-snug">{currentPhase.gesture}</p>
-                    </div>
+              {/* Sexual Desire Indicator */}
+              <div className="p-6 bg-white rounded-2xl border border-[#E8EAED] shadow-sm flex items-center gap-6">
+                <div className="flex-1">
+                  <div className="flex justify-between items-end mb-2">
+                    <span className="text-sm font-semibold text-google-gray uppercase tracking-wider">Deseo Sexual Probable</span>
+                    <span className="text-2xl font-bold text-google-blue">{currentPhase.desireLevel*10}%</span>
                   </div>
+                  <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden flex">
+                    <div 
+                      className={`h-full transition-all duration-1000 ${currentPhase.desireLevel > 7 ? 'bg-google-yellow' : 'bg-google-blue'}`}
+                      style={{ width: `${currentPhase.desireLevel * 10}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-google-gray mt-2 font-medium">
+                    {currentPhase.desireLevel >= 8 ? '🔥 Momento de alta receptividad. Ten iniciativa.' : 
+                     currentPhase.desireLevel >= 5 ? '😊 Receptiva a la ternura y conexión suave.' : 
+                     '💤 Baja energía sexual. Prioriza el cuidado emocional.'}
+                  </p>
                 </div>
               </div>
 
-              {/* Right Column: Dimensions */}
-              <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-min">
-                <DimensionCard Artistic icon="🩸" title="Estado Físico" content={currentPhase.physical} />
-                <DimensionCard Artistic icon="🧠" title="Emocional" content={currentPhase.emotional} />
-                <DimensionCard Artistic icon="💞" title="Intimidad" content={currentPhase.intimacy} />
-                <DimensionCard Artistic icon="🌿" title="Apetito" content={currentPhase.cravings} />
-                <div className="sm:col-span-2 p-6 bg-white border border-border-subtle rounded-[2rem] flex items-start gap-5 card-shadow">
-                  <span className="text-3xl">💬</span>
-                  <div>
-                    <p className="font-serif italic font-semibold text-lg mb-1 leading-none">Cómo comunicarte</p>
-                    <p className="text-sm text-[#666] leading-relaxed italic">"{currentPhase.communication}"</p>
-                  </div>
+              {/* Grid of Dimensions */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <DimensionCard icon={<Activity className="text-google-red" size={20} />} title="Estado Físico" content={currentPhase.physical} />
+                <DimensionCard icon={<Brain className="text-google-blue" size={20} />} title="Mental / Emocional" content={currentPhase.emotional} />
+                <DimensionCard icon={<Heart className="text-google-red" size={20} />} title="Intimidad & Sexo" content={currentPhase.intimacy} />
+                <DimensionCard icon={<UtensilsCrossed className="text-google-green" size={20} />} title="Alimentación" content={currentPhase.cravings} />
+              </div>
+
+              {/* Communication Card */}
+              <div className="p-6 bg-white border border-[#E8EAED] rounded-2xl flex items-start gap-5 shadow-sm">
+                <div className="w-12 h-12 bg-google-blue/10 rounded-xl flex items-center justify-center shrink-0">
+                  <MessageCircle className="text-google-blue" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-google-blue mb-1">Clave de comunicación</h3>
+                  <p className="text-sm text-google-gray leading-relaxed font-medium">"{currentPhase.communication}"</p>
+                </div>
+              </div>
+
+              {/* Gesture Card */}
+              <div className="p-6 bg-google-blue text-white rounded-2xl flex items-start gap-5 shadow-lg shadow-google-blue/20">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
+                  <Sparkles size={24} />
+                </div>
+                <div>
+                  <h3 className="font-bold mb-1">El gesto de hoy</h3>
+                  <p className="text-sm text-white/90 leading-relaxed font-medium">{currentPhase.gesture}</p>
                 </div>
               </div>
             </motion.div>
@@ -353,60 +377,37 @@ function MainView({ data, resetData }: { data: UserData, resetData: () => void }
         </AnimatePresence>
       </main>
 
-      {/* Navigation */}
-      <nav className="h-20 bg-white border-t border-border-subtle grid grid-cols-4 relative z-20">
+      {/* Navigation - Google Style */}
+      <nav className="fixed bottom-0 left-0 right-0 max-w-2xl mx-auto h-20 bg-white border-t border-[#E8EAED] grid grid-cols-4 z-40 px-2 pb-safe">
         {tabs.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`flex flex-col items-center justify-center gap-1 transition-all relative ${
+            className={`flex flex-col items-center justify-center gap-1.5 transition-all transition-colors ${
               activeTab === tab.id 
-                ? 'text-accent' 
-                : 'text-[#A8A293] hover:text-accent/70'
+                ? 'text-google-blue' 
+                : 'text-google-gray hover:text-google-blue/70'
             }`}
           >
-            {activeTab === tab.id && (
-              <motion.div 
-                layoutId="nav-active"
-                className="absolute top-0 left-1/4 right-1/4 h-0.5 bg-accent"
-              />
-            )}
-            <span className="text-xl">{tab.icon}</span>
-            <span className="text-[10px] uppercase font-bold tracking-[0.15em]">{tab.label}</span>
+            <div className={`p-1.5 rounded-full px-5 transition-all ${activeTab === tab.id ? 'bg-google-blue/10' : ''}`}>
+              {tab.icon}
+            </div>
+            <span className={`text-[11px] font-medium tracking-tight ${activeTab === tab.id ? 'opacity-100' : 'opacity-80'}`}>{tab.label}</span>
           </button>
         ))}
       </nav>
-
-      {/* Settings overlay toggle for desktop */}
-      <button 
-        onClick={resetData} 
-        className="hidden sm:flex absolute bottom-4 right-4 p-3 bg-white/50 backdrop-blur-sm rounded-full text-gray-400 hover:text-accent hover:rotate-90 transition-all z-30"
-      >
-        <Settings size={16} />
-      </button>
     </div>
   );
 }
 
-function DimensionCard({ title, content, icon, Artistic }: { title: string, content: string, icon: React.ReactNode, Artistic?: boolean }) {
-  if (Artistic) {
-    return (
-      <div className="p-6 bg-white border border-border-subtle rounded-[2rem] flex items-start gap-5 card-shadow transition-transform hover:scale-[1.02]">
-        <span className="text-3xl shrink-0">{icon}</span>
-        <div>
-          <p className="font-serif italic font-semibold text-lg mb-1 leading-none">{title}</p>
-          <p className="text-xs text-[#777] leading-tight">{content}</p>
-        </div>
-      </div>
-    );
-  }
+function DimensionCard({ title, content, icon }: { title: string, content: string, icon: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex gap-4 items-start">
-      <div className="p-3 bg-gray-50 rounded-xl">{icon}</div>
-      <div>
-        <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">{title}</h3>
-        <p className="text-sm text-gray-700 leading-snug">{content}</p>
+    <div className="p-5 bg-white border border-[#E8EAED] rounded-2xl shadow-sm transition-all hover:bg-gray-50 flex flex-col gap-3">
+      <div className="flex items-center gap-3">
+        <div className="p-2 bg-gray-100 rounded-lg">{icon}</div>
+        <p className="font-semibold text-sm text-[#202124]">{title}</p>
       </div>
+      <p className="text-xs text-google-gray leading-relaxed font-medium">{content}</p>
     </div>
   );
 }
@@ -440,49 +441,56 @@ function CalendarView({ data }: { data: UserData }) {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }}
       className="space-y-6"
     >
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#F5E6D3]">
-        <div className="flex justify-between items-center mb-6 px-2">
-          <h2 className="text-xl font-serif font-bold text-[#2D2D2D]">
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#E8EAED]">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-semibold text-[#202124] capitalize">
             {currentMonth.toLocaleString('es-ES', { month: 'long', year: 'numeric' })}
           </h2>
-          <div className="flex gap-2">
+          <div className="flex gap-1">
             <button 
               onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
-              className="p-2 hover:bg-gray-100 rounded-full"
+              className="p-2 hover:bg-gray-100 rounded-full text-google-gray transition-colors"
             >
               <ChevronLeft size={20} />
             </button>
             <button 
               onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
-              className="p-2 hover:bg-gray-100 rounded-full"
+              className="p-2 hover:bg-gray-100 rounded-full text-google-gray transition-colors"
             >
               <ChevronRight size={20} />
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-7 gap-2 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">
-          <div>D</div><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div>
+        <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-bold text-google-gray uppercase tracking-tighter mb-4 opacity-70">
+          <div>Dom</div><div>Lun</div><div>Mar</div><div>Mie</div><div>Jue</div><div>Vie</div><div>Sab</div>
         </div>
 
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-7 gap-1">
           {Array(startDay).fill(null).map((_, i) => <div key={`empty-${i}`} />)}
           {days.map(day => {
             const info = getDayInfo(day);
+            const isToday = new Date().getDate() === day && new Date().getMonth() === currentMonth.getMonth();
+            
             return (
-              <div 
+              <button 
                 key={day} 
                 onClick={() => setSelectedDayInfo({ day, dayInfo: info })}
-                className="aspect-square flex items-center justify-center relative group cursor-pointer"
+                className={`aspect-square flex items-center justify-center relative rounded-full transition-all hover:bg-gray-50 group ${isToday ? 'ring-2 ring-google-blue ring-offset-2' : ''}`}
               >
                 <div 
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-transform group-hover:scale-110"
-                  style={{ backgroundColor: info.phase.color + '20', color: info.phase.color }}
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium"
+                  style={{ backgroundColor: info.phase.id === 'menstrual' || info.phase.id === 'ovulatoria' ? info.phase.color + '15' : 'transparent' }}
                 >
-                  {day}
+                  <span style={{ color: info.phase.id === 'menstrual' || info.phase.id === 'ovulatoria' ? info.phase.color : '#3C4043' }}>
+                    {day}
+                  </span>
                 </div>
+                {info.phase.id === 'ovulatoria' && (
+                  <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-google-yellow rounded-full animate-pulse" />
+                )}
                 <div className="absolute bottom-1 w-1 h-1 rounded-full" style={{ backgroundColor: info.phase.color }} />
-              </div>
+              </button>
             );
           })}
         </div>
@@ -495,31 +503,32 @@ function CalendarView({ data }: { data: UserData }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="bg-white rounded-3xl p-6 border border-gray-100 shadow-lg relative bg-linear-to-b from-white to-gray-50"
+            className="bg-white rounded-2xl p-6 border border-[#E8EAED] shadow-lg relative"
           >
             <button 
               onClick={() => setSelectedDayInfo(null)}
-              className="absolute top-4 right-4 text-gray-400 p-1"
+              className="absolute top-4 right-4 text-google-gray p-2 hover:bg-gray-100 rounded-full"
             >
-              ✕
+              <Settings size={16} className="rotate-45" />
             </button>
-            <div className="flex items-center gap-2 mb-2">
-              <span className={`w-3 h-3 rounded-full`} style={{ backgroundColor: selectedDayInfo.dayInfo.phase.color }} />
-              <h4 className="font-serif font-bold text-lg" style={{ color: selectedDayInfo.dayInfo.phase.color }}>
-                Día {selectedDayInfo.day}: {selectedDayInfo.dayInfo.phase.name}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-4 h-4 rounded-full" style={{ backgroundColor: selectedDayInfo.dayInfo.phase.color }} />
+              <h4 className="font-semibold text-lg text-[#202124]">
+                Día {selectedDayInfo.day} - {selectedDayInfo.dayInfo.phase.name}
               </h4>
             </div>
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Día {selectedDayInfo.dayInfo.trueCycleDay} del Ciclo</p>
-            <p className="text-sm text-gray-700 leading-relaxed italic mb-4">"{selectedDayInfo.dayInfo.phase.description}"</p>
+            <p className="text-sm font-semibold text-google-gray mb-3 italic">
+              "{selectedDayInfo.dayInfo.phase.directMessage}"
+            </p>
             
-            <div className="space-y-3">
-              <div className="flex gap-3 items-start">
-                <Gift size={16} className="mt-0.5 text-amber-500 shrink-0" />
-                <p className="text-sm"><strong>Gesto:</strong> {selectedDayInfo.dayInfo.phase.gesture}</p>
+            <div className="grid grid-cols-1 gap-4 pt-2">
+              <div className="flex gap-4 p-3 bg-gray-50 rounded-xl">
+                <Sparkles size={18} className="text-google-blue shrink-0" />
+                <p className="text-xs font-medium text-google-gray"><strong>Gesto:</strong> {selectedDayInfo.dayInfo.phase.gesture}</p>
               </div>
-              <div className="flex gap-3 items-start">
-                <MessageCircle size={16} className="mt-0.5 text-blue-500 shrink-0" />
-                <p className="text-sm"><strong>Comunicación:</strong> {selectedDayInfo.dayInfo.phase.communication}</p>
+              <div className="flex gap-4 p-3 bg-gray-50 rounded-xl">
+                <Heart size={18} className="text-google-red shrink-0" />
+                <p className="text-xs font-medium text-google-gray"><strong>Deseo:</strong> {selectedDayInfo.dayInfo.phase.desireLevel*10}% receptividad</p>
               </div>
             </div>
           </motion.div>
@@ -527,11 +536,11 @@ function CalendarView({ data }: { data: UserData }) {
       </AnimatePresence>
 
       {/* Legend */}
-      <div className="bg-white p-6 rounded-3xl border border-gray-100 grid grid-cols-2 gap-4">
+      <div className="bg-white p-5 rounded-2xl border border-[#E8EAED] grid grid-cols-2 sm:grid-cols-3 gap-3">
         {PHASES.map(p => (
           <div key={p.id} className="flex items-center gap-2">
-            <div className={`w-3 h-3 rounded-full ${p.bgColor}`} />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">{p.name}</span>
+            <div className={`w-2.5 h-2.5 rounded-full ${p.bgColor}`} />
+            <span className="text-[10px] font-semibold text-google-gray">{p.name}</span>
           </div>
         ))}
       </div>
@@ -554,13 +563,13 @@ function UpcomingView({ data }: { data: UserData }) {
       const cycleDay = (diffDays % data.cycleLength) + 1;
       
       if (cycleDay === 1) {
-        list.push({ day: i, label: 'Inicio de la Regla', icon: '☕', color: '#8B2E4B' });
+        list.push({ day: i, label: `Inicio de Regla de ${data.partnerName}`, icon: <Activity className="text-google-red" />, type: 'critical' });
       }
       if (cycleDay === 14) {
-        list.push({ day: i, label: `Pico de Ovulación de ${data.partnerName}`, icon: '✨', color: '#C4973A' });
+        list.push({ day: i, label: 'Pico de Deseo Sexual (Ovulación)', icon: <Heart className="text-google-yellow fill-google-yellow" />, type: 'peak' });
       }
       if (cycleDay === 23) {
-        list.push({ day: i, label: 'Inicio de Fase Premenstrual', icon: '💬', color: '#7B6B9E' });
+        list.push({ day: i, label: 'Inicio Fase Crítica (Premenstrual)', icon: <Brain className="text-google-gray" />, type: 'alert' });
       }
     }
     return list;
@@ -569,29 +578,33 @@ function UpcomingView({ data }: { data: UserData }) {
   return (
     <motion.div 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-      className="space-y-10 py-4"
+      className="space-y-6"
     >
-      <header className="px-2">
-        <h2 className="text-3xl font-serif italic text-[#2D2D2D] mb-2">Próximos eventos</h2>
-        <p className="text-[10px] uppercase font-bold text-[#A8A293] tracking-[0.2em]">Anticípate para ser su mejor refugio</p>
-      </header>
+      <div className="px-1">
+        <h2 className="text-2xl font-medium text-[#202124] mb-2">Próximos eventos</h2>
+        <p className="text-sm text-google-gray">Previsión para los próximos 30 días</p>
+      </div>
 
-      <div className="space-y-6">
+      <div className="space-y-3">
         {events.map((e, idx) => (
-          <div key={idx} className="flex gap-8 items-center group">
-            <div className="w-20 flex-shrink-0 text-center">
-              <span className="text-[10px] font-bold text-[#A8A293] block uppercase tracking-widest mb-1">En {e.day} días</span>
-              <div className="w-1 h-8 bg-border-subtle mx-auto rounded-full" />
+          <div key={idx} className="bg-white p-5 rounded-2xl border border-[#E8EAED] flex items-center gap-5 shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center shrink-0">
+              {e.icon}
             </div>
-            <div className="flex-grow bg-white p-6 rounded-[2rem] border border-border-subtle flex items-center gap-6 shadow-sm hover:shadow-lg transition-all card-shadow">
-              <div className="w-14 h-14 flex items-center justify-center bg-bg-ivory rounded-2xl text-2xl shadow-inner shrink-0">
-                {e.icon}
-              </div>
-              <p className="text-lg font-serif font-semibold text-[#444]">{e.label}</p>
-              <div className="ml-auto w-2 h-2 rounded-full" style={{ backgroundColor: e.color }} />
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-[#202124]">{e.label}</p>
+              <p className="text-xs text-google-gray">En {e.day} días</p>
             </div>
+            {e.type === 'peak' && (
+              <span className="px-2 py-1 bg-google-yellow/10 text-google-yellow text-[10px] font-bold rounded uppercase tracking-wide">Pico</span>
+            )}
           </div>
         ))}
+        {events.length === 0 && (
+          <div className="p-12 text-center text-google-gray border-2 border-dashed border-gray-200 rounded-2xl">
+            No hay eventos críticos próximamente.
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -600,25 +613,23 @@ function UpcomingView({ data }: { data: UserData }) {
 function GuideView({ partnerName }: { partnerName: string }) {
   const sections = [
     {
-      title: "Errores Comunes",
-      subtitle: "Lo que debemos evitar",
+      title: "Protocolo de Acción",
       items: [
-        "Preguntar '¿Estás con la regla?' en tono de queja.",
-        "Intentar 'arreglar' sus emociones en lugar de validarlas.",
-        "Ignorar su dolor físico o fatiga como si no fuera real.",
-        "Tomar su necesidad de distancia como un rechazo personal.",
-        "Ignorar la carga mental cuando ella tiene menos energía."
+        "Evita preguntar si 'está con la regla' en medio de una discusión.",
+        "Si está irritable, no lo tomes personal. Su cuerpo está bajo mucha presión hormonal.",
+        "Valida sus emociones antes de proponer cualquier solución técnica.",
+        "Ten iniciativa en las tareas del hogar cuando ella tenga menos energía.",
+        "Respeta sus silencios y su necesidad de distanciarse sin sentirte rechazado."
       ]
     },
     {
-      title: "Palabras que Sanan",
-      subtitle: "Para conectar profundamente",
+      title: "Mensajes Directos",
       items: [
-        `"Veo que hoy ha sido un día intenso, yo me encargo de todo."`,
-        `"Tus sentimientos son válidos y estoy aquí para escucharte."`,
-        `"¿Qué pequeño gesto te haría sentir más cuidada cada día?"`,
-        `"Me encanta verte brillar así, irradias una energía especial."`,
-        `"No necesitas explicar nada, solo descansa y déjate cuidar."`
+        `"Hoy yo me encargo de la cena y de todo en casa, tú descansa."`,
+        `"Veo que estás cansada, ¿quieres que te traiga algo caliente?"`,
+        `"Entiendo que te sientas así, es normal y estoy aquí contigo."`,
+        `"Estás guapísima hoy, me encanta verte así de radiante."`,
+        `"No tienes que explicar nada, solo di qué necesitas de mí."`
       ]
     }
   ];
@@ -626,22 +637,23 @@ function GuideView({ partnerName }: { partnerName: string }) {
   return (
     <motion.div 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-      className="space-y-12 py-4"
+      className="space-y-8"
     >
-      <header className="px-2 text-center">
-        <h2 className="text-4xl font-serif italic text-[#2D2D2D] mb-2">Compañero Consciente</h2>
-        <p className="text-[10px] uppercase font-bold text-[#A8A293] tracking-[0.2em]">Manual de conexión con {partnerName}</p>
-      </header>
+      <div className="text-center px-4">
+        <h2 className="text-3xl font-medium text-[#202124] mb-2 font-serif italic tracking-tight">Manual del Compañero</h2>
+        <p className="text-sm text-google-gray">Directrices para una mejor conexión con {partnerName}</p>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="space-y-6">
         {sections.map((sec, idx) => (
-          <section key={idx} className="bg-bg-ivory rounded-[2.5rem] p-10 border border-border-subtle card-shadow">
-            <p className="text-xs font-bold text-accent uppercase tracking-widest mb-2">{sec.subtitle}</p>
-            <h3 className="text-3xl font-serif italic font-light mb-8 text-[#2D2D2D] border-b border-border-subtle pb-4">{sec.title}</h3>
-            <ul className="space-y-6">
+          <section key={idx} className="bg-white rounded-2xl p-8 border border-[#E8EAED] shadow-sm">
+            <h3 className="text-xl font-semibold mb-6 text-google-blue border-b border-gray-100 pb-3">{sec.title}</h3>
+            <ul className="space-y-4">
               {sec.items.map((item, i) => (
-                <li key={i} className="flex gap-4 text-base font-serif text-[#555] leading-relaxed">
-                  <span className="text-accent italic font-semibold">0{i+1}.</span>
+                <li key={i} className="flex gap-4 items-start text-sm text-[#3C4043] font-medium leading-relaxed">
+                  <div className="w-5 h-5 bg-google-blue/10 rounded-full flex items-center justify-center text-google-blue text-[10px] font-bold shrink-0 mt-0.5">
+                    {i+1}
+                  </div>
                   {item}
                 </li>
               ))}
@@ -650,11 +662,10 @@ function GuideView({ partnerName }: { partnerName: string }) {
         ))}
       </div>
 
-      <div className="p-12 bg-accent/5 rounded-[3rem] border border-accent/10 text-center card-shadow relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 bg-accent/30" />
-        <h3 className="text-2xl font-serif italic font-bold mb-4 text-accent">La Esencia</h3>
-        <p className="text-xl font-serif text-[#666] leading-relaxed max-w-2xl mx-auto italic">
-          "El ciclo no es un proceso que debamos 'gestionar', sino una naturaleza que debemos honrar. Tu papel no es ser su guía, sino su puerto seguro."
+      <div className="p-8 bg-google-blue text-white rounded-3xl shadow-xl shadow-google-blue/20 text-center">
+        <h3 className="text-lg font-bold mb-2">Principio Fundamental</h3>
+        <p className="text-sm text-white/90 leading-relaxed font-medium italic">
+          "Tu papel no es entender el ciclo a nivel biológico perfecto, sino ser el lugar seguro donde ella pueda transitarlo sin juicio."
         </p>
       </div>
     </motion.div>
