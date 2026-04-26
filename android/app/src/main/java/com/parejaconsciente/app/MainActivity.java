@@ -1,4 +1,4 @@
-package com.companeroconsciente.app;
+package com.parejaconsciente.app;
 
 import com.getcapacitor.BridgeActivity;
 

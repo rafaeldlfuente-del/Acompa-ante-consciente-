@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.companeroconsciente.app',
-  appName: 'Compañero Consciente',
+  appId: 'com.parejaconsciente.app',
+  appName: 'Pareja Consciente',
   webDir: 'dist'
 };
 

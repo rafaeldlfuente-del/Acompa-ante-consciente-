@@ -184,7 +184,7 @@ function SetupView({ onSave, initialData, onCancel }: { onSave: (data: UserData)
             </div>
           </div>
           <h1 className="text-3xl font-medium tracking-tight text-[#202124]">
-            {initialData ? 'Configuración' : 'Compañero Consciente'}
+            {initialData ? 'Configuración' : 'Pareja Consciente'}
           </h1>
           <p className="text-sm text-google-gray font-normal">
             {initialData ? 'Actualiza los datos de seguimiento' : 'Información clave para acompañar mejor'}
@@ -282,7 +282,7 @@ function MainView({ data, resetData }: { data: UserData, resetData: () => void }
             <Heart size={20} className="text-white fill-white" />
           </div>
           <div>
-            <h1 className="text-lg font-medium text-[#202124] leading-tight">Compañero Consciente</h1>
+            <h1 className="text-lg font-medium text-[#202124] leading-tight">Pareja Consciente</h1>
             <p className="text-xs text-google-gray">Acompañando a <span className="font-semibold">{data.partnerName}</span></p>
           </div>
         </div>
@@ -640,7 +640,7 @@ function GuideView({ partnerName }: { partnerName: string }) {
       className="space-y-8"
     >
       <div className="text-center px-4">
-        <h2 className="text-3xl font-medium text-[#202124] mb-2 font-serif italic tracking-tight">Manual del Compañero</h2>
+        <h2 className="text-3xl font-medium text-[#202124] mb-2 font-serif italic tracking-tight">Manual de la Pareja</h2>
         <p className="text-sm text-google-gray">Directrices para una mejor conexión con {partnerName}</p>
       </div>
 
